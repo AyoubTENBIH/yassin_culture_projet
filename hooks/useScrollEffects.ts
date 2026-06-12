@@ -88,7 +88,6 @@ export function useStatCounter(skipAnimation: boolean) {
     const el = document.querySelector(".stats");
     if (!el) return;
 
-    const targets = [15, 7, 3, 5];
     const observer = new IntersectionObserver(
       (entries) => {
         if (!entries[0].isIntersecting || animated.current) return;
