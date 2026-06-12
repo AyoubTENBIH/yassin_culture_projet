@@ -1,0 +1,564 @@
+\documentclass[12pt, a4paper]{article}
+
+% ─── الحزم الأساسية ───────────────────────────────────────────────────────────
+\usepackage{fontspec}
+\usepackage{polyglossia}
+\usepackage{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{caption}
+\usepackage[nottoc]{titlesec}
+\usepackage{fancyhdr}
+\usepackage{xcolor}
+\usepackage{enumitem}
+\usepackage{setspace}
+\usepackage{booktabs}
+\usepackage{colortbl}
+\usepackage{mdframed}
+\usepackage{microtype}
+\usepackage{array}
+\usepackage{tabularx}
+\usepackage{multicol}
+\usepackage{tikz}
+\usepackage{eso-pic}
+
+% ─── مسار الصور ───────────────────────────────────────────────────────────────
+\graphicspath{{صور/}}
+\DeclareGraphicsExtensions{.png,.jpg,.jpeg,.pdf}
+
+% ─── إعداد اللغة العربية ──────────────────────────────────────────────────────
+\setmainlanguage[calendar=gregorian]{arabic}
+\setotherlanguage{english}
+
+% ─── الخطوط (إعداد بسيط ومتوافق مع Overleaf) ─────────────────────────────────
+\setmainfont{Amiri}[
+  Script   = Arabic,
+  BoldFont = {Amiri Bold},
+]
+\newfontfamily\englishfont{Latin Modern Roman}
+
+% ─── إعداد الصفحة ─────────────────────────────────────────────────────────────
+\geometry{
+  a4paper,
+  top=2.8cm, bottom=2.8cm,
+  left=2.5cm, right=3.2cm,
+  headheight=1.8cm, headsep=1cm, footskip=1.4cm
+}
+
+% ─── الألوان الاحترافية ────────────────────────────────────────────────────────
+\definecolor{MainColor}{RGB}{120, 75, 30}        % بني داكن أنيق
+\definecolor{AccentColor}{RGB}{180, 120, 40}     % ذهبي دافئ
+\definecolor{LightBg}{RGB}{253, 250, 244}        % خلفية كريمية ناعمة
+\definecolor{DarkText}{RGB}{40, 28, 15}          % نص داكن عميق
+\definecolor{SubtitleColor}{RGB}{100, 70, 30}    % لون العناوين الفرعية
+\definecolor{RuleColor}{RGB}{200, 160, 80}       % لون الخطوط الزخرفية
+\definecolor{FooterGray}{RGB}{120, 110, 100}     % رمادي التذييل
+\definecolor{BoxBorder}{RGB}{180, 130, 50}       % إطار الصناديق
+
+% ─── تنسيق العناوين الاحترافي ─────────────────────────────────────────────────
+\titleformat{\section}
+  {\large\bfseries\color{MainColor}}
+  {\thesection.}{0.5em}{}
+  [\vspace{2pt}\color{RuleColor}\hrule height 1.2pt\vspace{4pt}]
+
+\titleformat{\subsection}
+  {\normalsize\bfseries\color{SubtitleColor}}
+  {\thesubsection.}{0.5em}{}
+
+\titlespacing*{\section}{0pt}{2em}{1em}
+\titlespacing*{\subsection}{0pt}{1.2em}{0.6em}
+
+% ─── رأس وتذييل الصفحة الاحترافي ──────────────────────────────────────────────
+\pagestyle{fancy}
+\fancyhf{}
+\fancyhead[R]{%
+  \small\color{MainColor}\textbf{تراث جهة سوس ماسة}%
+}
+\fancyhead[L]{%
+  \small\color{AccentColor}\thepage%
+}
+\fancyhead[C]{%
+  \color{RuleColor}\rule{3cm}{0.4pt}%
+}
+\fancyfoot[C]{%
+  \small\color{FooterGray}%
+  \rule{3.5cm}{0.3pt}\quad المملكة المغربية \quad\rule{3.5cm}{0.3pt}%
+}
+\renewcommand{\headrulewidth}{0.6pt}
+\renewcommand{\headrule}{\color{RuleColor}\hrule width\headwidth height\headrulewidth}
+\renewcommand{\footrulewidth}{0pt}
+
+% ─── إعداد التسميات التوضيحية ─────────────────────────────────────────────────
+\captionsetup{
+  font={small, it},
+  labelfont={bf, color=MainColor},
+  justification=centering,
+  singlelinecheck=false,
+  skip=6pt
+}
+
+% ─── تباعد السطور ─────────────────────────────────────────────────────────────
+\setstretch{1.7}
+
+% ─── أنماط الصناديق ───────────────────────────────────────────────────────────
+\mdfdefinestyle{HeritageBox}{
+  linecolor=BoxBorder,
+  backgroundcolor=LightBg,
+  linewidth=1.8pt,
+  innertopmargin=12pt,
+  innerbottommargin=12pt,
+  innerleftmargin=16pt,
+  innerrightmargin=16pt,
+  roundcorner=6pt,
+  shadow=false
+}
+
+\mdfdefinestyle{IntroBox}{
+  linecolor=AccentColor,
+  backgroundcolor=LightBg,
+  linewidth=2pt,
+  topline=true,
+  bottomline=true,
+  leftline=false,
+  rightline=false,
+  innertopmargin=14pt,
+  innerbottommargin=14pt,
+  innerleftmargin=18pt,
+  innerrightmargin=18pt
+}
+
+\mdfdefinestyle{ConclusionBox}{
+  linecolor=MainColor,
+  backgroundcolor=LightBg,
+  linewidth=1.5pt,
+  innertopmargin=14pt,
+  innerbottommargin=14pt,
+  innerleftmargin=18pt,
+  innerrightmargin=18pt,
+  roundcorner=8pt
+}
+
+% ─── أمر مساعد للفاصل الزخرفي ────────────────────────────────────────────────
+\newcommand{\ornamentalrule}{%
+  \begin{center}
+    \color{RuleColor}%
+    \rule{2cm}{0.4pt}\quad%
+    {\large $\diamond$}\quad%
+    \rule{2cm}{0.4pt}%
+  \end{center}%
+}
+
+% ═══════════════════════════════════════════════════════════════════════════════
+\usepackage{hyperref}
+\hypersetup{
+  colorlinks = true,
+  linkcolor  = MainColor,
+  urlcolor   = AccentColor,
+  citecolor  = MainColor,
+  pdfborder  = {0 0 0},
+  hidelinks,
+}
+
+\begin{document}
+
+% ═══════════════════════════════════════════════════════════════════════════════
+%  صفحة الغلاف الاحترافية
+% ═══════════════════════════════════════════════════════════════════════════════
+\begin{titlepage}
+  \thispagestyle{empty}
+  \centering
+
+  % خلفية لونية علوية
+  \begin{tikzpicture}[remember picture, overlay]
+    \fill[MainColor!15] (current page.north west) rectangle
+      ([yshift=-5cm] current page.north east);
+    \fill[AccentColor!30] ([yshift=-5cm] current page.north west) rectangle
+      ([yshift=-5.3cm] current page.north east);
+  \end{tikzpicture}
+
+  \vspace*{0.8cm}
+
+  % شعار أو صورة الغلاف
+  \begin{mdframed}[style=HeritageBox]
+    \centering
+    \vspace{0.2cm}
+    \includegraphics[width=0.88\textwidth, height=9cm, keepaspectratio]{agadirofla.jpg}
+    \vspace{0.2cm}
+  \end{mdframed}
+
+  \vspace{1cm}
+
+  % العنوان الرئيسي
+  {\fontsize{28}{34}\selectfont\bfseries\color{MainColor}
+    تراث جهة سوس ماسة}
+
+  \vspace{0.4cm}
+  \textcolor{AccentColor}{\rule{10cm}{2pt}}
+  \vspace{0.4cm}
+
+  % العنوان الفرعي
+  {\fontsize{14}{18}\selectfont\color{SubtitleColor}
+    دراسة في الموروث الحضاري والثقافي والطبيعي}
+
+  \vspace{0.3cm}
+
+  {\fontsize{11}{14}\selectfont\color{FooterGray}
+    المملكة المغربية — جهة سوس ماسة}
+
+  \vspace{0.5cm}
+  \textcolor{RuleColor}{\rule{6cm}{0.5pt}}
+
+  \vfill
+
+  % معلومات الطالب والقسم
+  \begin{mdframed}[
+    linecolor=AccentColor!50,
+    backgroundcolor=MainColor!5,
+    linewidth=1pt,
+    innertopmargin=10pt, innerbottommargin=10pt,
+    innerleftmargin=14pt, innerrightmargin=14pt,
+    roundcorner=4pt
+  ]
+  \centering
+  {\normalsize\color{DarkText}\textbf{إعداد الطالب:} \textenglish{yassin tenbih}}\\[0.4cm]
+  {\normalsize\color{DarkText}\textbf{القسم:} 3/6}\\[0.4cm]
+  {\small\color{FooterGray} \today}
+  \end{mdframed}
+
+\end{titlepage}
+
+% ═══════════════════════════════════════════════════════════════════════════════
+\section*{مقدمة}
+\addcontentsline{toc}{section}{مقدمة}
+
+\begin{mdframed}[style=IntroBox]
+تُعدّ جهة سوس ماسة من أغنى الجهات المغربية حضارةً وتاريخاً وثقافةً. تمتد في جنوب
+المغرب بين الشريط الساحلي الأطلسي وسلاسل جبال الأطلس الصغير، فجعلها الموقع
+الجغرافي الاستثنائي هذا ملتقىً للحضارات عبر العصور. يمتزج في تراثها العريق الموروثُ
+الأمازيغي الأصيل بالروافد العربية والإفريقية، ليُشكِّل نسيجاً ثقافياً فريداً لا مثيل له
+في المنطقة المغاربية.
+\end{mdframed}
+
+\bigskip
+
+يشكّل التراث السوسي ركيزةً جوهرية للهوية الثقافية للمنطقة، ويُسهم في التنمية
+الاقتصادية والسياحية من خلال استقطاب الزوار والباحثين المهتمين بالثقافة والتاريخ.
+وتسعى هذه الدراسة إلى تسليط الضوء على أبرز مكونات هذا التراث المتعدد الأبعاد،
+والإسهام في حفظه ونقله إلى الأجيال القادمة.
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════════
+\section{التراث التاريخي لجهة سوس ماسة}
+
+عرفت منطقة سوس ماسة استقرار الإنسان منذ عصور موغلة في القِدَم، إذ كشفت الدراسات
+الأثرية عن مواقع تعود إلى فترات ما قبل التاريخ. وقد أسهمت المنطقة في التجارة
+القارية بين شمال إفريقيا وبلدان القارة جنوب الصحراء الكبرى، مما أكسبها أهمية
+استراتيجية وحضارية بالغة.
+
+\subsection{قصبة أكادير أوفلا}
+
+تُعدّ قصبة أكادير أوفلا من أبرز المعالم التاريخية بمدينة أكادير، شُيِّدت في القرن
+السادس عشر الميلادي حصناً منيعاً لصدّ الغارات الخارجية. وعلى الرغم من الأضرار
+الجسيمة التي خلَّفها زلزال عام 1960، فلا تزال القصبة شاهدةً صامدةً على تاريخ
+المنطقة ومجدها الغابر.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{kasbah.jpg}
+  \caption{قصبة أكادير أوفلا — القرن السادس عشر الميلادي}
+  \label{fig:kasbah_agadir}
+\end{figure}
+
+\subsection{مدينة تارودانت التاريخية}
+
+تُلقَّب تارودانت بـ«مراكش الصغيرة» بسبب أسوارها الشامخة ومعالمها العريقة.
+كانت في فترة من الفترات عاصمةً للدولة السعدية، مما منحها ثقلاً سياسياً
+وتاريخياً كبيراً لا يزال ماثلاً في مبانيها وأزقتها حتى اليوم.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{taroudant.jpg}
+  \caption{الأسوار التاريخية لمدينة تارودانت}
+  \label{fig:taroudant}
+\end{figure}
+
+\subsection{المخازن الجماعية (إكودار)}
+
+تُعدّ «إكودار» — المخازن الجماعية الأمازيغية — من أبرز الشواهد المعمارية
+التقليدية، إذ كانت تُستعمل لتخزين الحبوب والمؤن والممتلكات الثمينة للأسر
+والقبائل، وتعكس روح التضامن الجماعي الأمازيغي الأصيل.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{atlas.jpg}
+  \caption{إكودار — المخازن الجماعية الأمازيغية}
+  \label{fig:igoudar}
+\end{figure}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════════
+\section{التراث المعماري}
+
+يتميّز التراث المعماري في سوس ماسة بالاعتماد الحكيم على المواد المحلية كالطين
+والحجر والخشب، مع مراعاة دقيقة للظروف المناخية الخاصة بالمنطقة. يجمع هذا
+التراث بين الجمالية المرهفة والوظيفة العملية، ليُجسِّد عبقرية المعماري السوسي
+التقليدي.
+
+\subsection{المنازل التقليدية والقصبات}
+
+بُنيت المنازل التقليدية وفق هندسة بيئية متطورة تتلاءم مع البيئة المحلية،
+تتميّز بجدران سميكة ونوافذ ضيقة تُبقي على البرودة صيفاً وتحفظ الدفء شتاءً،
+وهي منظومة معمارية متكاملة سبقت مفهوم «الاستدامة» الحديث بقرون.
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.47\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{maison.jpg}
+    \caption{نموذج منزل تقليدي سوسي}
+    \label{fig:house}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.47\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{kasbah.jpg}
+    \caption{قصبة تاريخية — سوس ماسة}
+    \label{fig:kasbah_gen}
+  \end{minipage}
+\end{figure}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════════
+\section{التراث الثقافي واللامادي}
+
+يشمل التراث اللامادي جميع الممارسات والتقاليد والعادات والتعبيرات التي
+توارثتها الأجيال شفاهةً وممارسةً. ويُصنَّف كثير منها في قائمة اليونسكو للتراث
+الإنساني غير المادي، وهو ما يُؤكد الأهمية الكونية للموروث السوسي.
+
+\subsection{اللغة الأمازيغية — تاشلحيت}
+
+تُعدّ اللغة الأمازيغية السوسية «تاشلحيت» الركيزةَ الأساسية للهوية الثقافية
+للجهة، إذ يتحدث بها غالبية سكان المنطقة، وتحمل في طياتها تاريخاً حضارياً
+عميقاً من الشعر والحكمة والأدب الشفهي.
+
+\subsection{فن الروايس}
+
+يُمثِّل فن «الروايس» ذروةً في الإبداع الموسيقي السوسي، يمزج بين الشعر
+الغنائي والموسيقى والعزف على الآلات التقليدية. ومن أبرز أعلامه الذين خلّدوا
+هذا الفن:
+
+\begin{mdframed}[style=HeritageBox]
+\begin{itemize}[rightmargin=0.5cm, itemsep=0.5em, label=\textcolor{AccentColor}{$\bullet$}]
+  \item \textbf{الحاج بلعيد} — رائد الأغنية السوسية الأصيلة
+  \item \textbf{الرايس سعيد اشتوك} — صوت جبال الأطلس
+  \item \textbf{الرايسة فاطمة تبعمرانت} — أميرة الغناء النسائي السوسي
+\end{itemize}
+\end{mdframed}
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{rways.jpg}
+  \caption{فن الروايس — إرث سوسي عريق}
+  \label{fig:rways}
+\end{figure}
+
+\subsection{رقصة أحواش}
+
+تُعدّ رقصة «أحواش» تجسيداً حياً للوحدة والانسجام الجماعي، يشارك فيها الرجال
+والنساء معاً في أداء بهيج يجمع الغناءَ والرقصَ والشعرَ في انسجام تام. أُدرجت
+في قائمة التراث الإنساني غير المادي لليونسكو.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{ahwach.jpg}
+  \caption{رقصة أحواش — تراث إنساني مُصنَّف لدى اليونسكو}
+  \label{fig:ahwach}
+\end{figure}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════════
+\section{التراث الحرفي والصناعات التقليدية}
+
+تشتهر جهة سوس ماسة بحرف يدوية متنوعة تعكس مهارة الصانع المحلي وذوقه الأصيل،
+وقد حافظت هذه الحرف على خصوصيتها الفنية رغم موجات التحديث المتلاحقة.
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.30\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{zarbiya.jpg}
+    \caption{الزرابي السوسية}
+    \label{fig:carpet}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.30\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{holi.jpg}
+    \caption{الحلي الفضية الأمازيغية}
+    \label{fig:jewelry}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.30\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{fakhkhar.jpg}
+    \caption{صناعة الفخار التقليدي}
+    \label{fig:pottery}
+  \end{minipage}
+\end{figure}
+
+\bigskip
+
+\begin{mdframed}[style=HeritageBox]
+\begin{description}[rightmargin=0.5cm, itemsep=0.4em, labelwidth=3cm, font=\bfseries\color{MainColor}]
+  \item[الزرابي] تُنسج يدوياً بزخارف هندسية أمازيغية أصيلة، وتتميّز بألوان طبيعية مستخرجة من النباتات.
+  \item[الحلي الفضية] مصنوعة بتقنيات تقليدية توارثتها الأجيال، وترمز إلى الهوية والانتماء.
+  \item[الفخار] يحمل نقوشاً وأشكالاً تعكس التصور الجمالي الأمازيغي للكون والطبيعة.
+  \item[النسيج] يتضمن الجلابيب والأكسية التقليدية ذات الخيوط المصنوعة من الصوف الطبيعي.
+\end{description}
+\end{mdframed}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════════
+\section{التراث الطبيعي}
+
+إلى جانب الثروة الثقافية والحضارية، تزخر جهة سوس ماسة بتراث طبيعي نادر يجعل
+منها وجهةً استثنائية على الصعيد الإيكولوجي العالمي، تتنوع فيها الأنظمة البيئية
+من الشريط الساحلي إلى السفوح الجبلية.
+
+\subsection{المنتزه الوطني لسوس ماسة}
+
+يُعدّ المنتزه الوطني لسوس ماسة من أهم المحميات الطبيعية بالمغرب وأبرزها
+على مستوى القارة الإفريقية، يأوي طيوراً نادرة وثدييات متنوعة، ومن أبرز
+ساكنيه الفلامنغو الوردي الذي يُشكّل مشهداً طبيعياً آخاذاً.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{parc.jpg}
+  \caption{المنتزه الوطني لسوس ماسة — محمية طبيعية عالمية}
+  \label{fig:park}
+\end{figure}
+
+\subsection{وادي الجنة — \textenglish{Paradise Valley}}
+
+يُمثِّل وادي الجنة تحفةً طبيعية بديعة تكتنفها الأخضرارات الكثيفة والمياه
+الصافية، بعيداً عن ضوضاء المدينة، يقصده المتعطشون للسلام والجمال الطبيعي
+من أنحاء العالم.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{wadi.jpg}
+  \caption{وادي الجنة — جوهرة الطبيعة السوسية}
+  \label{fig:valley}
+\end{figure}
+
+\subsection{شاطئ ليكزيرا}
+
+يشتهر شاطئ ليكزيرا بأقواسه الصخرية الطبيعية الفريدة من نوعها، التي تُشكِّل
+منظراً بانورامياً مذهلاً يستقطب السياح وعشاق الطبيعة من مختلف أصقاع العالم.
+
+\begin{figure}[H]
+  \centering
+  \includegraphics[width=0.82\textwidth]{legzira.jpg}
+  \caption{شاطئ ليكزيرا — الأقواس الصخرية الطبيعية}
+  \label{fig:legzira}
+\end{figure}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════════
+\section{المطبخ التقليدي السوسي}
+
+يُعدّ المطبخ السوسي امتداداً طبيعياً للتراث المحلي وانعكاساً لوفرة الأرض وكرم
+ساكنيها. تمتزج فيه النكهات الجبلية والساحلية والصحراوية لتخلق مزيجاً
+غذائياً أصيلاً يجمع اللذة بالصحة والعافية.
+
+\bigskip
+
+\begin{center}
+\begin{tabular}{>{\bfseries\color{MainColor}}p{3.2cm} p{10cm}}
+  \toprule
+  \rowcolor{MainColor!10}
+  \multicolumn{1}{c}{\textbf{\color{MainColor}المنتج / الطبق}} &
+  \multicolumn{1}{c}{\textbf{\color{MainColor}الوصف والخصائص}} \\
+  \midrule
+  أملو          & خليط ذهبي من زيت الأركان البكر والمر اللوز العضوي وعسل المناطق الجبلية \\[0.4em]
+  الكسكس السوسي & يُحضَّر بأساليب تقليدية خاصة في المناسبات والأفراح، ومميَّز بتوابله الأصيلة \\[0.4em]
+  الطاجين       & بأصنافه المتعددة اعتماداً على المنتجات المحلية الطازجة والتوابل العطرية \\[0.4em]
+  زيت الأركان   & «الذهب السائل» لسوس ماسة، منتج عالمي الشهرة لخصائصه الغذائية والتجميلية \\
+  \bottomrule
+\end{tabular}
+\end{center}
+
+\bigskip
+
+\begin{figure}[H]
+  \centering
+  \begin{minipage}{0.47\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{amlu.jpg}
+    \caption{أملو — لذة سوسية أصيلة لا تُضاهَى}
+    \label{fig:amlu}
+  \end{minipage}
+  \hfill
+  \begin{minipage}{0.47\textwidth}
+    \centering
+    \includegraphics[width=\textwidth]{argan.jpg}
+    \caption{شجرة الأركان — الذهب السائل لسوس ماسة}
+    \label{fig:argan}
+  \end{minipage}
+\end{figure}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════════
+\section{أهمية المحافظة على التراث}
+
+\begin{mdframed}[style=HeritageBox]
+\begin{itemize}[rightmargin=0.5cm, itemsep=0.6em, label=\textcolor{AccentColor}{\large$\star$}]
+  \item تعزيز الهوية الثقافية للأجيال الصاعدة وتنمية الانتماء الوطني والمحلي.
+  \item تطوير السياحة الثقافية واستقطاب الزوار والباحثين من مختلف أنحاء العالم.
+  \item حماية الموروث الحضاري من خطر الاندثار في ظل العولمة المتسارعة.
+  \item دعم الاقتصاد المحلي وتوفير فرص العمل عبر الصناعات التقليدية والحرف اليدوية.
+  \item الإسهام في الحوار الحضاري بتقديم التراث السوسي للعالم على الصعيدين الوطني والدولي.
+  \item توثيق الممارسات الثقافية اللامادية قبل اندثارها مع أصحابها من الحرفيين والفنانين.
+\end{itemize}
+\end{mdframed}
+
+\newpage
+
+% ═══════════════════════════════════════════════════════════════════════════════
+\section*{خاتمة}
+\addcontentsline{toc}{section}{خاتمة}
+
+\begin{mdframed}[style=ConclusionBox]
+يُجسِّد تراث جهة سوس ماسة ثروةً حضاريةً وثقافيةً وطبيعيةً لا تُقدَّر بثمن،
+تعكس تاريخ المنطقة العريق وتنوّع مكوناتها الإنسانية والبيئية. في هذا التراث
+العميق تلتقي الأمازيغية بالعروبة، وتتصافح الجبال بالبحر، ويتعانق الموروث
+الحضاري بالعطاء الطبيعي السخي.
+\end{mdframed}
+
+\bigskip\noindent
+ويظل الحفاظ على هذا الإرث الاستثنائي مسؤوليةً جماعيةً راسخة تستلزم تضافر
+جهود المؤسسات الرسمية والمجتمع المدني والأسر والأفراد، لضمان استمرار هذا
+الكنز الحضاري وانتقاله سليماً إلى الأجيال القادمة، حاملاً معه هويتنا وذاكرتنا
+الجماعية.
+
+\bigskip\noindent
+ومن خلال العناية المتواصلة بالمعالم التاريخية، وصون الفنون التقليدية، والحفاظ
+على العادات المتوارثة، تواصل جهة سوس ماسة تألقها كإحدى أكثر جهات المملكة
+المغربية غنىً بالتراث وعطاءً بالثقافة.
+
+\vfill
+
+\begin{center}
+  \textcolor{AccentColor}{\rule{4cm}{0.8pt}}%
+  \quad{\large\bfseries\color{MainColor} نهاية الوثيقة}\quad%
+  \textcolor{AccentColor}{\rule{4cm}{0.8pt}}
+\end{center}
+
+\end{document}

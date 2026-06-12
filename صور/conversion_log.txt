@@ -1,0 +1,17 @@
+OK  agadirofla.webp  ->  agadirofla.jpg
+OK  قصبة تاريخية بجهة سوس ماسة].webp  ->  kasbah.jpg
+OK  تردانت.webp  ->  taroudant.jpg
+OK  الاطلس الصغير.webp  ->  atlas.jpg
+OK  نموذج لمنزل تقليدي سوسي.webp  ->  maison.jpg
+OK  فرقة روايس تؤدي عرضًا فنيًا].webp  ->  rways.jpg
+OK  عرض لرقصة أحواش].webp  ->  ahwach.jpg
+OK  زربية سوسية تقليدية].webp  ->  zarbiya.jpg
+OK  حلي فضية أمازيغية].webp  ->  holi.jpg
+OK  أوانٍ فخارية تقليدية].webp  ->  fakhkhar.jpg
+OK  المنتزه الوطني لسوس ماسة].webp  ->  parc.jpg
+OK  وادي الجنة].webp  ->  wadi.jpg
+OK  الأقواس الصخرية بشاطئ ليكزيرا].webp  ->  legzira.jpg
+OK  طبق أملو وزيت الأركان].webp  ->  amlu.jpg
+OK  شجرة الأركان].webp  ->  argan.jpg
+
+15 images converties.

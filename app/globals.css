@@ -1,0 +1,1546 @@
+﻿:root {
+      --main: #8b5a2b;
+      --accent: #c88c3c;
+      --accent-light: #e8b86d;
+      --bg: #fcf8f0;
+      --bg-dark: #2d2318;
+      --text: #322314;
+      --text-light: #5c4a38;
+      --white: #ffffff;
+      --shadow: 0 8px 32px rgba(50, 35, 20, 0.12);
+      --shadow-lg: 0 20px 60px rgba(50, 35, 20, 0.18);
+      --radius: 16px;
+      --transition: 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html { scroll-behavior: smooth; scroll-padding-top: 80px; }
+
+    body {
+      font-family: var(--font-tajawal), sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.8;
+      overflow-x: hidden;
+    }
+
+    h1, h2, h3, .logo { font-family: var(--font-amiri), serif; }
+
+    img { max-width: 100%; height: auto; display: block; }
+
+    a { text-decoration: none; color: inherit; }
+
+    /* ─── Navigation ─── */
+    .navbar {
+      position: fixed;
+      top: 0;
+      right: 0;
+      left: 0;
+      z-index: 1000;
+      padding: 0 2rem;
+      height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      transition: var(--transition);
+    }
+
+    .navbar.scrolled {
+      background: rgba(252, 248, 240, 0.95);
+      backdrop-filter: blur(12px);
+      box-shadow: 0 2px 20px rgba(50, 35, 20, 0.08);
+    }
+
+    .navbar.hero-nav { background: transparent; }
+
+    .logo {
+      font-size: 1.5rem;
+      font-weight: 700;
+      color: var(--white);
+      transition: color var(--transition);
+    }
+
+    .navbar.scrolled .logo { color: var(--main); }
+
+    .nav-links {
+      display: flex;
+      gap: 0.25rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: rgba(255,255,255,0.9);
+      border-radius: 8px;
+      transition: var(--transition);
+    }
+
+    .navbar.scrolled .nav-links a { color: var(--text); }
+
+    .nav-links a:hover,
+    .nav-links a.active {
+      background: rgba(200, 140, 60, 0.2);
+      color: var(--accent-light);
+    }
+
+    .navbar.scrolled .nav-links a:hover,
+    .navbar.scrolled .nav-links a.active {
+      background: rgba(139, 90, 43, 0.1);
+      color: var(--main);
+    }
+
+    .menu-toggle {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      border: none;
+      cursor: pointer;
+      padding: 4px;
+    }
+
+    .menu-toggle span {
+      width: 26px;
+      height: 2px;
+      background: var(--white);
+      transition: var(--transition);
+      border-radius: 2px;
+    }
+
+    .navbar.scrolled .menu-toggle span { background: var(--main); }
+
+    /* ─── Hero ─── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 600px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background: url('/images/agadirofla.jpg') center/cover no-repeat;
+      transform: scale(1.05);
+      transition: transform 8s ease;
+    }
+
+    .hero:hover .hero-bg { transform: scale(1.1); }
+
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        135deg,
+        rgba(45, 35, 24, 0.75) 0%,
+        rgba(139, 90, 43, 0.55) 50%,
+        rgba(45, 35, 24, 0.8) 100%
+      );
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: center;
+      padding: 2rem;
+      max-width: 900px;
+      animation: fadeUp 1.2s ease;
+    }
+
+    .hero-badge {
+      display: inline-block;
+      padding: 0.4rem 1.2rem;
+      background: rgba(200, 140, 60, 0.25);
+      border: 1px solid rgba(232, 184, 109, 0.4);
+      border-radius: 50px;
+      color: var(--accent-light);
+      font-size: 0.85rem;
+      font-weight: 500;
+      margin-bottom: 1.5rem;
+      backdrop-filter: blur(4px);
+    }
+
+    .hero h1 {
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      color: var(--white);
+      margin-bottom: 1rem;
+      text-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      line-height: 1.3;
+    }
+
+    .hero-divider {
+      width: 120px;
+      height: 3px;
+      background: linear-gradient(90deg, transparent, var(--accent), transparent);
+      margin: 1.5rem auto;
+    }
+
+    .hero p {
+      font-size: clamp(1rem, 2.5vw, 1.3rem);
+      color: rgba(255,255,255,0.9);
+      font-weight: 300;
+      margin-bottom: 1.5rem;
+    }
+
+    .hero-student {
+      display: inline-flex;
+      align-items: center;
+      gap: 1.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+      padding: 0.75rem 1.8rem;
+      background: rgba(255, 255, 255, 0.1);
+      border: 1px solid rgba(255, 255, 255, 0.2);
+      border-radius: 50px;
+      backdrop-filter: blur(8px);
+      margin-bottom: 2rem;
+    }
+
+    .hero-student span {
+      font-size: 0.95rem;
+      color: rgba(255, 255, 255, 0.85);
+      font-weight: 400;
+    }
+
+    .hero-student strong {
+      color: var(--accent-light);
+      font-weight: 600;
+    }
+
+    .hero-student .sep {
+      width: 1px;
+      height: 18px;
+      background: rgba(255, 255, 255, 0.3);
+    }
+
+    .hero-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.9rem 2.2rem;
+      background: linear-gradient(135deg, var(--accent), var(--main));
+      color: var(--white);
+      border-radius: 50px;
+      font-weight: 600;
+      font-size: 1rem;
+      transition: var(--transition);
+      box-shadow: 0 8px 30px rgba(139, 90, 43, 0.4);
+    }
+
+    .hero-cta:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(139, 90, 43, 0.5);
+    }
+
+    .scroll-indicator {
+      position: absolute;
+      bottom: 2rem;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 2;
+      animation: bounce 2s infinite;
+    }
+
+    .scroll-indicator span {
+      display: block;
+      width: 24px;
+      height: 40px;
+      border: 2px solid rgba(255,255,255,0.5);
+      border-radius: 12px;
+      position: relative;
+    }
+
+    .scroll-indicator span::after {
+      content: '';
+      position: absolute;
+      top: 8px;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 4px;
+      height: 8px;
+      background: var(--accent-light);
+      border-radius: 2px;
+      animation: scrollDot 2s infinite;
+    }
+
+    /* ─── Sections ─── */
+    section { padding: 6rem 2rem; }
+
+    .container {
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    .section-header {
+      text-align: center;
+      margin-bottom: 4rem;
+    }
+
+    .section-tag {
+      display: inline-block;
+      color: var(--accent);
+      font-weight: 600;
+      font-size: 0.85rem;
+      letter-spacing: 2px;
+      margin-bottom: 0.75rem;
+      text-transform: uppercase;
+    }
+
+    .section-header h2 {
+      font-size: clamp(1.8rem, 4vw, 2.8rem);
+      color: var(--main);
+      margin-bottom: 1rem;
+    }
+
+    .section-header .line {
+      width: 80px;
+      height: 3px;
+      background: linear-gradient(90deg, var(--main), var(--accent));
+      margin: 0 auto 1.5rem;
+      border-radius: 2px;
+    }
+
+    .section-header p {
+      max-width: 700px;
+      margin: 0 auto;
+      color: var(--text-light);
+      font-size: 1.05rem;
+    }
+
+    /* ─── Intro Box ─── */
+    .intro-box {
+      background: var(--white);
+      border-right: 4px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 2.5rem;
+      box-shadow: var(--shadow);
+      font-size: 1.1rem;
+      line-height: 2;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .intro-box::before {
+      content: '❝';
+      position: absolute;
+      top: -10px;
+      right: 20px;
+      font-size: 5rem;
+      color: rgba(200, 140, 60, 0.1);
+      font-family: var(--font-amiri), serif;
+    }
+
+    .intro-text {
+      margin-top: 2rem;
+      color: var(--text-light);
+      font-size: 1.05rem;
+    }
+
+    /* ─── Stats ─── */
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 1.5rem;
+      margin-top: 4rem;
+    }
+
+    .stat-card {
+      text-align: center;
+      padding: 2rem 1rem;
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .stat-card:hover { transform: translateY(-5px); }
+
+    .stat-number {
+      font-family: var(--font-amiri), serif;
+      font-size: 2.5rem;
+      font-weight: 700;
+      color: var(--main);
+      line-height: 1;
+    }
+
+    .stat-label {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      margin-top: 0.5rem;
+    }
+
+    /* ─── Heritage Cards ─── */
+    .heritage-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(340px, 1fr));
+      gap: 2rem;
+    }
+
+    .heritage-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+    }
+
+    .heritage-card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .heritage-card .img-wrap {
+      position: relative;
+      height: 240px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .heritage-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .heritage-card:hover img { transform: scale(1.08); }
+
+    .heritage-card .img-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(transparent 50%, rgba(45,35,24,0.7));
+      opacity: 0;
+      transition: var(--transition);
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      padding-bottom: 1rem;
+    }
+
+    .heritage-card:hover .img-overlay { opacity: 1; }
+
+    .heritage-card .img-overlay span {
+      color: var(--white);
+      font-size: 0.85rem;
+      background: rgba(200,140,60,0.8);
+      padding: 0.3rem 1rem;
+      border-radius: 20px;
+    }
+
+    .heritage-card .card-body { padding: 1.8rem; }
+
+    .heritage-card h3 {
+      font-size: 1.4rem;
+      color: var(--main);
+      margin-bottom: 0.75rem;
+    }
+
+    .heritage-card p {
+      color: var(--text-light);
+      font-size: 0.95rem;
+    }
+
+    /* ─── Architecture Split ─── */
+    .split-section {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: center;
+    }
+
+    .split-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .split-images .img-card {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .split-images .img-card:first-child { grid-row: span 2; }
+
+    .split-images .img-card:hover { transform: scale(1.03); }
+
+    .split-images img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      min-height: 180px;
+    }
+
+    .split-content h3 {
+      font-size: 1.6rem;
+      color: var(--main);
+      margin-bottom: 1rem;
+    }
+
+    .split-content p {
+      color: var(--text-light);
+      margin-bottom: 1rem;
+    }
+
+    .feature-list {
+      list-style: none;
+      margin-top: 1.5rem;
+    }
+
+    .feature-list li {
+      padding: 0.6rem 0;
+      padding-right: 1.5rem;
+      position: relative;
+      color: var(--text-light);
+      border-bottom: 1px solid rgba(139,90,43,0.1);
+    }
+
+    .feature-list li::before {
+      content: '◆';
+      position: absolute;
+      right: 0;
+      color: var(--accent);
+      font-size: 0.6rem;
+      top: 0.85rem;
+    }
+
+    /* ─── Culture Section ─── */
+    .culture-section { background: var(--bg-dark); color: var(--white); }
+
+    .culture-section .section-header h2 { color: var(--accent-light); }
+    .culture-section .section-header p { color: rgba(255,255,255,0.7); }
+
+    .culture-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 2rem;
+    }
+
+    .culture-card {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid rgba(200,140,60,0.2);
+      border-radius: var(--radius);
+      overflow: hidden;
+      transition: var(--transition);
+    }
+
+    .culture-card:hover {
+      background: rgba(255,255,255,0.08);
+      border-color: var(--accent);
+      transform: translateY(-5px);
+    }
+
+    .culture-card .img-wrap {
+      height: 220px;
+      overflow: hidden;
+      cursor: pointer;
+    }
+
+    .culture-card img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .culture-card:hover img { transform: scale(1.05); }
+
+    .culture-card .card-body { padding: 1.5rem; }
+
+    .culture-card h3 {
+      font-size: 1.3rem;
+      color: var(--accent-light);
+      margin-bottom: 0.75rem;
+    }
+
+    .culture-card p {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.95rem;
+    }
+
+    .artists-list {
+      margin-top: 1rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+    }
+
+    .artist-tag {
+      padding: 0.3rem 0.8rem;
+      background: rgba(200,140,60,0.2);
+      border-radius: 20px;
+      font-size: 0.8rem;
+      color: var(--accent-light);
+    }
+
+    /* ─── Crafts Gallery ─── */
+    .crafts-gallery {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+
+    .craft-item {
+      position: relative;
+      border-radius: var(--radius);
+      overflow: hidden;
+      aspect-ratio: 1;
+      cursor: pointer;
+      box-shadow: var(--shadow);
+    }
+
+    .craft-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .craft-item:hover img { transform: scale(1.1); }
+
+    .craft-label {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      padding: 1.5rem 1rem 1rem;
+      background: linear-gradient(transparent, rgba(45,35,24,0.85));
+      color: var(--white);
+      font-weight: 600;
+      font-size: 1rem;
+      text-align: center;
+    }
+
+    /* ─── Nature Section ─── */
+    .nature-section {
+      background: linear-gradient(180deg, var(--bg) 0%, #eef5f0 100%);
+    }
+
+    .nature-showcase {
+      display: grid;
+      grid-template-columns: 1.2fr 1fr;
+      gap: 2rem;
+    }
+
+    .nature-main {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow-lg);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .nature-main img {
+      width: 100%;
+      height: 100%;
+      min-height: 400px;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .nature-main:hover img { transform: scale(1.05); }
+
+    .nature-main .caption {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      padding: 2rem;
+      background: linear-gradient(transparent, rgba(45,35,24,0.8));
+      color: var(--white);
+    }
+
+    .nature-main .caption h3 { font-size: 1.5rem; margin-bottom: 0.3rem; }
+
+    .nature-side {
+      display: flex;
+      flex-direction: column;
+      gap: 1.5rem;
+    }
+
+    .nature-side-item {
+      flex: 1;
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      position: relative;
+      min-height: 180px;
+    }
+
+    .nature-side-item img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .nature-side-item:hover img { transform: scale(1.05); }
+
+    .nature-side-item .caption {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      padding: 1rem;
+      background: linear-gradient(transparent, rgba(45,35,24,0.75));
+      color: var(--white);
+      font-weight: 600;
+    }
+
+    /* ─── Cuisine ─── */
+    .cuisine-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem;
+      align-items: start;
+    }
+
+    .cuisine-table {
+      background: var(--white);
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+    }
+
+    .cuisine-table table {
+      width: 100%;
+      border-collapse: collapse;
+    }
+
+    .cuisine-table th {
+      background: linear-gradient(135deg, var(--main), var(--accent));
+      color: var(--white);
+      padding: 1rem 1.5rem;
+      text-align: right;
+      font-weight: 600;
+    }
+
+    .cuisine-table td {
+      padding: 1rem 1.5rem;
+      border-bottom: 1px solid rgba(139,90,43,0.08);
+    }
+
+    .cuisine-table tr:last-child td { border-bottom: none; }
+
+    .cuisine-table td:first-child {
+      font-weight: 700;
+      color: var(--main);
+      white-space: nowrap;
+    }
+
+    .cuisine-table tr:hover td { background: rgba(200,140,60,0.05); }
+
+    .cuisine-images {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+
+    .cuisine-img {
+      border-radius: var(--radius);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      cursor: pointer;
+      position: relative;
+    }
+
+    .cuisine-img img {
+      width: 100%;
+      height: 200px;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+
+    .cuisine-img:hover img { transform: scale(1.08); }
+
+    .cuisine-img .label {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      left: 0;
+      padding: 0.75rem;
+      background: linear-gradient(transparent, rgba(45,35,24,0.7));
+      color: var(--white);
+      font-size: 0.85rem;
+      text-align: center;
+    }
+
+    /* ─── Preservation ─── */
+    .preserve-section { background: var(--white); }
+
+    .preserve-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .preserve-card {
+      padding: 2rem 1.5rem;
+      background: var(--bg);
+      border-radius: var(--radius);
+      text-align: center;
+      border: 1px solid rgba(139,90,43,0.1);
+      transition: var(--transition);
+    }
+
+    .preserve-card:hover {
+      border-color: var(--accent);
+      transform: translateY(-5px);
+      box-shadow: var(--shadow);
+    }
+
+    .preserve-icon {
+      width: 60px;
+      height: 60px;
+      margin: 0 auto 1rem;
+      background: linear-gradient(135deg, var(--accent), var(--main));
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.5rem;
+    }
+
+    .preserve-card h4 {
+      color: var(--main);
+      font-size: 1.05rem;
+      margin-bottom: 0.5rem;
+    }
+
+    .preserve-card p {
+      color: var(--text-light);
+      font-size: 0.9rem;
+    }
+
+    /* ─── Conclusion ─── */
+    .conclusion {
+      background: linear-gradient(135deg, var(--main), #6b4423);
+      color: var(--white);
+      text-align: center;
+      padding: 5rem 2rem;
+    }
+
+    .conclusion h2 {
+      font-size: 2rem;
+      margin-bottom: 1.5rem;
+      color: var(--accent-light);
+    }
+
+    .conclusion p {
+      max-width: 800px;
+      margin: 0 auto 1rem;
+      font-size: 1.1rem;
+      line-height: 2;
+      color: rgba(255,255,255,0.9);
+    }
+
+    .conclusion .divider {
+      width: 100px;
+      height: 2px;
+      background: var(--accent-light);
+      margin: 2rem auto;
+    }
+
+    /* ─── Footer ─── */
+    footer {
+      background: var(--bg-dark);
+      color: rgba(255,255,255,0.6);
+      text-align: center;
+      padding: 2rem;
+      font-size: 0.9rem;
+    }
+
+    footer .flag-line {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    footer .flag-line span {
+      width: 60px;
+      height: 1px;
+      background: rgba(200,140,60,0.4);
+    }
+
+    footer strong { color: var(--accent-light); }
+
+    /* ─── Lightbox ─── */
+    .lightbox {
+      position: fixed;
+      inset: 0;
+      z-index: 2000;
+      background: rgba(0,0,0,0.92);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      opacity: 0;
+      visibility: hidden;
+      transition: var(--transition);
+    }
+
+    .lightbox.active {
+      opacity: 1;
+      visibility: visible;
+    }
+
+    .lightbox img {
+      max-width: 90vw;
+      max-height: 85vh;
+      border-radius: 8px;
+      box-shadow: 0 20px 60px rgba(0,0,0,0.5);
+      transform: scale(0.9);
+      transition: transform 0.4s ease;
+    }
+
+    .lightbox.active img { transform: scale(1); }
+
+    .lightbox-close {
+      position: absolute;
+      top: 1.5rem;
+      left: 1.5rem;
+      background: none;
+      border: 2px solid rgba(255,255,255,0.5);
+      color: var(--white);
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      font-size: 1.2rem;
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .lightbox-close:hover {
+      background: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .lightbox-caption {
+      position: absolute;
+      bottom: 2rem;
+      right: 0;
+      left: 0;
+      text-align: center;
+      color: var(--white);
+      font-size: 1rem;
+    }
+
+    /* ─── Animations ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(40px);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .reveal.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(30px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes bounce {
+      0%, 100% { transform: translateX(-50%) translateY(0); }
+      50% { transform: translateX(-50%) translateY(10px); }
+    }
+
+    @keyframes scrollDot {
+      0% { opacity: 1; top: 8px; }
+      100% { opacity: 0; top: 22px; }
+    }
+
+    /* ─── Amazigh Pattern ─── */
+    .pattern-bar {
+      height: 8px;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--main) 0px, var(--main) 20px,
+        var(--accent) 20px, var(--accent) 40px,
+        var(--accent-light) 40px, var(--accent-light) 60px
+      );
+    }
+
+    /* ─── Responsive ─── */
+    @media (max-width: 1024px) {
+      .culture-grid { grid-template-columns: 1fr 1fr; }
+      .nature-showcase { grid-template-columns: 1fr; }
+      .split-section { grid-template-columns: 1fr; }
+      .stats { grid-template-columns: repeat(2, 1fr); }
+    }
+
+    @media (max-width: 768px) {
+      .nav-links {
+        position: fixed;
+        top: 72px;
+        right: 0;
+        left: 0;
+        background: rgba(252,248,240,0.98);
+        flex-direction: column;
+        padding: 1rem;
+        gap: 0;
+        transform: translateY(-120%);
+        transition: var(--transition);
+        box-shadow: var(--shadow);
+      }
+
+      .nav-links.open { transform: translateY(0); }
+
+      .nav-links a {
+        color: var(--text) !important;
+        padding: 0.8rem 1rem;
+        border-bottom: 1px solid rgba(139,90,43,0.08);
+      }
+
+      .menu-toggle { display: flex; }
+
+      .menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translate(5px, 5px); }
+      .menu-toggle.active span:nth-child(2) { opacity: 0; }
+      .menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translate(5px, -5px); }
+
+      .heritage-grid { grid-template-columns: 1fr; }
+      .culture-grid { grid-template-columns: 1fr; }
+      .crafts-gallery { grid-template-columns: 1fr 1fr; }
+      .cuisine-grid { grid-template-columns: 1fr; }
+      .split-images { grid-template-columns: 1fr; }
+      .split-images .img-card:first-child { grid-row: auto; }
+      section { padding: 4rem 1.2rem; }
+    }
+
+    @media (max-width: 480px) {
+      .stats { grid-template-columns: 1fr; }
+      .crafts-gallery { grid-template-columns: 1fr; }
+      .cuisine-images { grid-template-columns: 1fr; }
+    }
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="navbar hero-nav" id="navbar">
+    <a href="#" class="logo">تراث سوس ماسة</a>
+    <button class="menu-toggle" id="menuToggle" aria-label="القائمة">
+      <span></span><span></span><span></span>
+    </button>
+    <ul class="nav-links" id="navLinks">
+      <li><a href="#intro">مقدمة</a></li>
+      <li><a href="#history">التاريخ</a></li>
+      <li><a href="#architecture">العمارة</a></li>
+      <li><a href="#culture">الثقافة</a></li>
+      <li><a href="#crafts">الحرف</a></li>
+      <li><a href="#nature">الطبيعة</a></li>
+      <li><a href="#cuisine">المطبخ</a></li>
+      <li><a href="#preserve">الحفاظ</a></li>
+    </ul>
+  </nav>
+
+  <!-- Hero -->
+  <header class="hero" id="home">
+    <div class="hero-bg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <span class="hero-badge">المملكة المغربية — جهة سوس ماسة</span>
+      <h1>تراث جهة سوس ماسة</h1>
+      <div class="hero-divider"></div>
+      <p>دراسة في الموروث الحضاري والثقافي والطبيعي</p>
+      <div class="hero-student">
+        <span>الطالب: <strong>Yassin Tenbih</strong></span>
+        <span class="sep"></span>
+        <span>القسم: <strong>3/6</strong></span>
+      </div>
+      <a href="#intro" class="hero-cta">اكتشف التراث &#8595;</a>
+    </div>
+    <div class="scroll-indicator"><span></span></div>
+  </header>
+
+  <div class="pattern-bar"></div>
+
+  <!-- Introduction -->
+  <section id="intro">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">البداية</span>
+        <h2>مقدمة</h2>
+        <div class="line"></div>
+      </div>
+      <div class="intro-box reveal">
+        تُعد جهة سوس ماسة من أهم الجهات المغربية من حيث الغنى الحضاري والثقافي والتاريخي.
+        تقع في جنوب المغرب، وتمتد بين الساحل الأطلسي وسلسلة جبال الأطلس الصغير، مما جعلها
+        ملتقى للحضارات والثقافات المختلفة عبر التاريخ. وتتميز الجهة بتراث مادي ولا مادي غني
+        يعكس أصالة المنطقة وتنوع مكوناتها الأمازيغية والعربية والإفريقية.
+      </div>
+      <p class="intro-text reveal">
+        ويشكل التراث السوسي ركيزة أساسية للحفاظ على الهوية الثقافية للمنطقة، كما يساهم في
+        التنمية الاقتصادية والسياحية من خلال جذب الزوار والباحثين المهتمين بالثقافة والتاريخ.
+      </p>
+      <div class="stats reveal">
+        <div class="stat-card">
+          <div class="stat-number" data-target="15">0</div>
+          <div class="stat-label">معالم وصور تراثية</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-target="7">0</div>
+          <div class="stat-label">أقسام ثقافية</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-target="3">0</div>
+          <div class="stat-label">فنون شعبية رئيسية</div>
+        </div>
+        <div class="stat-card">
+          <div class="stat-number" data-target="5">0</div>
+          <div class="stat-label">أطباق تقليدية</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Historical Heritage -->
+  <section id="history">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">الجذور</span>
+        <h2>التراث التاريخي</h2>
+        <div class="line"></div>
+        <p>عرفت منطقة سوس ماسة استقرار الإنسان منذ عصور قديمة، ولعبت دورًا مهمًا في التجارة بين شمال إفريقيا وبلدان إفريقيا جنوب الصحراء.</p>
+      </div>
+      <div class="heritage-grid">
+        <article class="heritage-card reveal">
+          <div class="img-wrap" data-lightbox="صور/kasbah.jpg" data-caption="قصبة أكادير أوفلا — القرن السادس عشر">
+            <img src="صور/kasbah.jpg" alt="قصبة أكادير أوفلا" loading="lazy">
+            <div class="img-overlay"><span>عرض الصورة</span></div>
+          </div>
+          <div class="card-body">
+            <h3>قصبة أكادير أوفلا</h3>
+            <p>شُيِّدت في القرن السادس عشر لحماية المدينة من الهجمات الخارجية. ورغم تعرضها لأضرار كبيرة إثر زلزال 1960، فإنها لا تزال شاهدة على تاريخ المنطقة العريق.</p>
+          </div>
+        </article>
+        <article class="heritage-card reveal">
+          <div class="img-wrap" data-lightbox="صور/taroudant.jpg" data-caption="الأسوار التاريخية لمدينة تارودانت">
+            <img src="صور/taroudant.jpg" alt="مدينة تارودانت" loading="lazy">
+            <div class="img-overlay"><span>عرض الصورة</span></div>
+          </div>
+          <div class="card-body">
+            <h3>مدينة تارودانت التاريخية</h3>
+            <p>تُلقَّب بـ"مراكش الصغيرة" بسبب أسوارها العريقة ومعالمها التاريخية. وقد كانت عاصمة للدولة السعدية، مما منحها أهمية سياسية وتاريخية كبيرة.</p>
+          </div>
+        </article>
+        <article class="heritage-card reveal">
+          <div class="img-wrap" data-lightbox="صور/atlas.jpg" data-caption="إكودار — المخازن الجماعية الأمازيغية">
+            <img src="صور/atlas.jpg" alt="إكودار — المخازن الجماعية" loading="lazy">
+            <div class="img-overlay"><span>عرض الصورة</span></div>
+          </div>
+          <div class="card-body">
+            <h3>المخازن الجماعية (إكودار)</h3>
+            <p>من أبرز الشواهد المعمارية التقليدية الأمازيغية، حيث كانت تُستعمل لتخزين الحبوب والمؤن والممتلكات الثمينة للسكان.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Architecture -->
+  <section id="architecture" style="background: var(--white);">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">البناء</span>
+        <h2>التراث المعماري</h2>
+        <div class="line"></div>
+        <p>يتميز بالاعتماد على المواد المحلية كالطين والحجر والخشب، مع مراعاة الظروف المناخية للمنطقة.</p>
+      </div>
+      <div class="split-section">
+        <div class="split-images reveal">
+          <div class="img-card" data-lightbox="صور/maison.jpg" data-caption="نموذج منزل تقليدي سوسي">
+            <img src="صور/maison.jpg" alt="منزل تقليدي سوسي" loading="lazy">
+          </div>
+          <div class="img-card" data-lightbox="صور/kasbah.jpg" data-caption="قصبة تاريخية — سوس ماسة">
+            <img src="صور/kasbah.jpg" alt="قصبة تاريخية" loading="lazy">
+          </div>
+          <div class="img-card" data-lightbox="صور/agadirofla.jpg" data-caption="أكادير أوفلا">
+            <img src="صور/agadirofla.jpg" alt="أكادير أوفلا" loading="lazy">
+          </div>
+        </div>
+        <div class="split-content reveal">
+          <h3>المنازل التقليدية والقصبات</h3>
+          <p>بُنيت المنازل التقليدية وفق هندسة تتلاءم مع البيئة المحلية، حيث تتميز بالجدران السميكة والنوافذ الصغيرة للحفاظ على البرودة صيفًا والدفء شتاءً.</p>
+          <ul class="feature-list">
+            <li>استخدام الطين والحجر والخشب المحلي</li>
+            <li>جدران سميكة للعزل الحراري</li>
+            <li>نوافذ صغيرة لحماية المناخ</li>
+            <li>قصبات دفاعية تاريخية</li>
+            <li>تصميم يتناسب مع البيئة الصحراوية</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Culture -->
+  <section id="culture" class="culture-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">الروح</span>
+        <h2>التراث الثقافي واللامادي</h2>
+        <div class="line" style="background: linear-gradient(90deg, var(--accent-light), var(--accent));"></div>
+        <p>يشمل جميع الممارسات والتقاليد والعادات التي توارثتها الأجيال عبر الزمن.</p>
+      </div>
+      <div class="culture-grid">
+        <article class="culture-card reveal">
+          <div class="card-body" style="padding-bottom: 0;">
+            <h3>اللغة الأمازيغية — تاشلحيت</h3>
+            <p>تُعتبر اللغة الأمازيغية السوسية (تاشلحيت) من أهم عناصر الهوية الثقافية للجهة، حيث يتحدث بها معظم سكان المنطقة.</p>
+          </div>
+          <div class="img-wrap" data-lightbox="صور/rways.jpg" data-caption="فن الروايس — إرث سوسي عريق">
+            <img src="صور/rways.jpg" alt="فن الروايس" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3>فن الروايس</h3>
+            <p>من أشهر الفنون الموسيقية في سوس ماسة، يجمع بين الشعر والغناء والعزف على الآلات التقليدية.</p>
+            <div class="artists-list">
+              <span class="artist-tag">الحاج بلعيد</span>
+              <span class="artist-tag">الرايس سعيد اشتوك</span>
+              <span class="artist-tag">الرايسة فاطمة تبعمرانت</span>
+            </div>
+          </div>
+        </article>
+        <article class="culture-card reveal">
+          <div class="img-wrap" data-lightbox="صور/ahwach.jpg" data-caption="رقصة أحواش — تراث إنساني مشترك">
+            <img src="صور/ahwach.jpg" alt="رقصة أحواش" loading="lazy">
+          </div>
+          <div class="card-body">
+            <h3>رقصة أحواش</h3>
+            <p>من أهم الفنون الشعبية بالمنطقة، حيث يشارك الرجال والنساء في أداء جماعي يجمع بين الغناء والرقص والشعر.</p>
+          </div>
+        </article>
+        <article class="culture-card reveal">
+          <div class="card-body">
+            <h3>تراث إنساني مشترك</h3>
+            <p>تجمع الفنون السوسية بين الأصالة الأمازيغية والتأثيرات العربية والإفريقية، مما يجعلها تراثًا إنسانيًا فريدًا يستحق الحفاظ عليه والتعريف به عالميًا.</p>
+            <div class="artists-list" style="margin-top: 1.5rem;">
+              <span class="artist-tag">الغناء الجماعي</span>
+              <span class="artist-tag">الشعر الشعبي</span>
+              <span class="artist-tag">الآلات التقليدية</span>
+              <span class="artist-tag">الاحتفالات المحلية</span>
+            </div>
+          </div>
+        </article>
+      </div>
+    </div>
+  </section>
+
+  <!-- Crafts -->
+  <section id="crafts">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">الإبداع</span>
+        <h2>التراث الحرفي والصناعات التقليدية</h2>
+        <div class="line"></div>
+        <p>تشتهر جهة سوس ماسة بالعديد من الحرف التقليدية التي تعكس مهارة الصناع المحليين وإبداعهم.</p>
+      </div>
+      <div class="crafts-gallery reveal">
+        <div class="craft-item" data-lightbox="صور/zarbiya.jpg" data-caption="الزرابي السوسية">
+          <img src="صور/zarbiya.jpg" alt="الزرابي السوسية" loading="lazy">
+          <div class="craft-label">الزرابي السوسية</div>
+        </div>
+        <div class="craft-item" data-lightbox="صور/holi.jpg" data-caption="الحلي الفضية الأمازيغية">
+          <img src="صور/holi.jpg" alt="الحلي الفضية" loading="lazy">
+          <div class="craft-label">الحلي الفضية الأمازيغية</div>
+        </div>
+        <div class="craft-item" data-lightbox="صور/fakhkhar.jpg" data-caption="صناعة الفخار التقليدي">
+          <img src="صور/fakhkhar.jpg" alt="صناعة الفخار" loading="lazy">
+          <div class="craft-label">صناعة الفخار التقليدي</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Nature -->
+  <section id="nature" class="nature-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">الجمال الطبيعي</span>
+        <h2>التراث الطبيعي</h2>
+        <div class="line"></div>
+        <p>إلى جانب التراث الثقافي، تزخر جهة سوس ماسة بتراث طبيعي غني يجمع بين الجبال والشواطئ والوديان.</p>
+      </div>
+      <div class="nature-showcase reveal">
+        <div class="nature-main" data-lightbox="صور/parc.jpg" data-caption="المنتزه الوطني لسوس ماسة">
+          <img src="صور/parc.jpg" alt="المنتزه الوطني لسوس ماسة" loading="lazy">
+          <div class="caption">
+            <h3>المنتزه الوطني لسوس ماسة</h3>
+            <p>محمية طبيعية بارزة تحتضن تنوعًا بيولوجيًا فريدًا</p>
+          </div>
+        </div>
+        <div class="nature-side">
+          <div class="nature-side-item" data-lightbox="صور/wadi.jpg" data-caption="وادي الجنة — جمال الطبيعة السوسية">
+            <img src="صور/wadi.jpg" alt="وادي الجنة" loading="lazy">
+            <div class="caption">وادي الجنة — Paradise Valley</div>
+          </div>
+          <div class="nature-side-item" data-lightbox="صور/legzira.jpg" data-caption="شاطئ ليكزيرا — الأقواس الصخرية">
+            <img src="صور/legzira.jpg" alt="شاطئ ليكزيرا" loading="lazy">
+            <div class="caption">شاطئ ليكزيرا — الأقواس الصخرية</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Cuisine -->
+  <section id="cuisine" style="background: var(--white);">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">الذوق السوسي</span>
+        <h2>المطبخ التقليدي السوسي</h2>
+        <div class="line"></div>
+        <p>مطبخ غني بالنكهات الأصيلة والمنتجات المحلية الفريدة.</p>
+      </div>
+      <div class="cuisine-grid">
+        <div class="cuisine-table reveal">
+          <table>
+            <thead>
+              <tr>
+                <th>المنتج / الطبق</th>
+                <th>الوصف</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td>أملو</td>
+                <td>خليط من زيت الأركان واللوز العضوي والعسل الطبيعي</td>
+              </tr>
+              <tr>
+                <td>الكسكس السوسي</td>
+                <td>يُحضَّر بطرق تقليدية خاصة بالمناسبات والأعراس</td>
+              </tr>
+              <tr>
+                <td>الطاجين</td>
+                <td>بأنواعه المختلفة اعتمادًا على المنتجات المحلية الطازجة</td>
+              </tr>
+              <tr>
+                <td>زيت الأركان</td>
+                <td>من أشهر منتجات المنطقة وأكثرها شهرة على المستوى العالمي</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+        <div class="cuisine-images reveal">
+          <div class="cuisine-img" data-lightbox="صور/amlu.jpg" data-caption="أملو — لذة سوسية أصيلة">
+            <img src="صور/amlu.jpg" alt="أملو" loading="lazy">
+            <div class="label">أملو — لذة سوسية أصيلة</div>
+          </div>
+          <div class="cuisine-img" data-lightbox="صور/argan.jpg" data-caption="شجرة الأركان — كنز سوس ماسة">
+            <img src="صور/argan.jpg" alt="شجرة الأركان" loading="lazy">
+            <div class="label">شجرة الأركان — كنز سوس ماسة</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Preservation -->
+  <section id="preserve" class="preserve-section">
+    <div class="container">
+      <div class="section-header reveal">
+        <span class="section-tag">المسؤولية</span>
+        <h2>أهمية المحافظة على التراث</h2>
+        <div class="line"></div>
+      </div>
+      <div class="preserve-grid reveal">
+        <div class="preserve-card">
+          <div class="preserve-icon">&#9733;</div>
+          <h4>تعزيز الهوية الثقافية</h4>
+          <p>نقل التراث إلى الأجيال الصاعدة وتعزيز الانتماء</p>
+        </div>
+        <div class="preserve-card">
+          <div class="preserve-icon">&#9992;</div>
+          <h4>تنمية السياحة الثقافية</h4>
+          <p>جذب الزوار من مختلف أنحاء العالم</p>
+        </div>
+        <div class="preserve-card">
+          <div class="preserve-icon">&#9878;</div>
+          <h4>حماية الموروث</h4>
+          <p>الحفاظ على التراث من الاندثار والنسيان</p>
+        </div>
+        <div class="preserve-card">
+          <div class="preserve-icon">&#9830;</div>
+          <h4>دعم الاقتصاد المحلي</h4>
+          <p>تشجيع الصناعات التقليدية والحرف اليدوية</p>
+        </div>
+        <div class="preserve-card">
+          <div class="preserve-icon">&#127758;</div>
+          <h4>التعريف العالمي</h4>
+          <p>إبراز تاريخ المنطقة وثقافتها وطبيعتها</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Conclusion -->
+  <section class="conclusion">
+    <div class="container reveal">
+      <h2>خاتمة</h2>
+      <div class="divider"></div>
+      <p>
+        يمثل تراث جهة سوس ماسة ثروة حضارية وثقافية فريدة تعكس تاريخ المنطقة العريق وتنوع
+        مكوناتها الثقافية والطبيعية. ويظل الحفاظ على هذا التراث مسؤولية جماعية تتطلب تضافر
+        جهود المؤسسات والمجتمع المدني والأفراد.
+      </p>
+      <p>
+        ومن خلال العناية بالمعالم التاريخية والفنون التقليدية والعادات المتوارثة، تواصل جهة
+        سوس ماسة الحفاظ على مكانتها كإحدى أغنى الجهات المغربية تراثًا وثقافة.
+      </p>
+    </div>
+  </section>
+
+  <footer>
+    <div class="flag-line">
+      <span></span>
+      <strong>المملكة المغربية — جهة سوس ماسة</strong>
+      <span></span>
+    </div>
+    <p>تراث جهة سوس ماسة — دراسة في الموروث الحضاري والثقافي والطبيعي</p>
+  </footer>
+
+  <!-- Lightbox -->
+  <div class="lightbox" id="lightbox">
+    <button class="lightbox-close" id="lightboxClose" aria-label="إغلاق">&#10005;</button>
+    <img src="" alt="" id="lightboxImg">
+    <div class="lightbox-caption" id="lightboxCaption"></div>
+  </div>
+
+  <script>
+    (function () {
+      const navbar = document.getElementById('navbar');
+      const menuToggle = document.getElementById('menuToggle');
+      const navLinks = document.getElementById('navLinks');
+      const lightbox = document.getElementById('lightbox');
+      const lightboxImg = document.getElementById('lightboxImg');
+      const lightboxCaption = document.getElementById('lightboxCaption');
+      const lightboxClose = document.getElementById('lightboxClose');
+
+      /* Navbar scroll effect */
+      function handleScroll() {
+        if (window.scrollY > 80) {
+          navbar.classList.add('scrolled');
+          navbar.classList.remove('hero-nav');
+        } else {
+          navbar.classList.remove('scrolled');
+          navbar.classList.add('hero-nav');
+        }
+
+        const sections = document.querySelectorAll('section[id]');
+        let current = '';
+        sections.forEach(function (section) {
+          const top = section.offsetTop - 120;
+          if (window.scrollY >= top) current = section.id;
+        });
+        navLinks.querySelectorAll('a').forEach(function (link) {
+          link.classList.toggle('active', link.getAttribute('href') === '#' + current);
+        });
+      }
+
+      window.addEventListener('scroll', handleScroll, { passive: true });
+      handleScroll();
+
+      /* Mobile menu */
+      menuToggle.addEventListener('click', function () {
+        menuToggle.classList.toggle('active');
+        navLinks.classList.toggle('open');
+      });
+
+      navLinks.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          menuToggle.classList.remove('active');
+          navLinks.classList.remove('open');
+        });
+      });
+
+      /* Scroll reveal */
+      const revealEls = document.querySelectorAll('.reveal');
+      const revealObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('visible');
+            revealObserver.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+      revealEls.forEach(function (el) { revealObserver.observe(el); });
+
+      /* Counter animation */
+      const counters = document.querySelectorAll('.stat-number');
+      const counterObserver = new IntersectionObserver(function (entries) {
+        entries.forEach(function (entry) {
+          if (!entry.isIntersecting) return;
+          const el = entry.target;
+          const target = parseInt(el.dataset.target, 10);
+          let current = 0;
+          const step = Math.max(1, Math.floor(target / 30));
+          const timer = setInterval(function () {
+            current += step;
+            if (current >= target) {
+              current = target;
+              clearInterval(timer);
+            }
+            el.textContent = current;
+          }, 40);
+          counterObserver.unobserve(el);
+        });
+      }, { threshold: 0.5 });
+
+      counters.forEach(function (c) { counterObserver.observe(c); });
+
+      /* Lightbox */
+      function openLightbox(src, caption) {
+        lightboxImg.src = src;
+        lightboxImg.alt = caption || '';
+        lightboxCaption.textContent = caption || '';
+        lightbox.classList.add('active');
+        document.body.style.overflow = 'hidden';
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('active');
+        document.body.style.overflow = '';
+      }
+
+      document.querySelectorAll('[data-lightbox]').forEach(function (el) {
+        el.addEventListener('click', function () {
+          openLightbox(el.dataset.lightbox, el.dataset.caption);
+        });
+      });
+
+      lightboxClose.addEventListener('click', closeLightbox);
+      lightbox.addEventListener('click', function (e) {
+        if (e.target === lightbox) closeLightbox();
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape') closeLightbox();
+      });
+
+      /* Smooth parallax on hero */
+      window.addEventListener('scroll', function () {
+        const heroBg = document.querySelector('.hero-bg');
+        if (heroBg && window.scrollY < window.innerHeight) {
+          heroBg.style.transform = 'scale(1.05) translateY(' + (window.scrollY * 0.3) + 'px)';
+        }
+      }, { passive: true });
+    })();
+  </script>
+</body>
+</html>
+
