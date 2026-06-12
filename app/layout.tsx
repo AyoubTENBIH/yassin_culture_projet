@@ -3,17 +3,19 @@ import { Amiri, Tajawal } from "next/font/google";
 import "./globals.css";
 
 const amiri = Amiri({
-  subsets: ["arabic", "latin"],
+  subsets: ["arabic"],
   weight: ["400", "700"],
   variable: "--font-amiri",
   display: "swap",
+  preload: true,
 });
 
 const tajawal = Tajawal({
-  subsets: ["arabic", "latin"],
-  weight: ["300", "400", "500", "700", "800"],
+  subsets: ["arabic"],
+  weight: ["400", "700"],
   variable: "--font-tajawal",
   display: "swap",
+  preload: true,
 });
 
 export const metadata: Metadata = {

@@ -26,8 +26,8 @@
 \graphicspath{{صور/}}
 \DeclareGraphicsExtensions{.png,.jpg,.jpeg,.pdf}
 
-% ─── إعداد اللغة العربية ──────────────────────────────────────────────────────
-\setmainlanguage[calendar=gregorian]{arabic}
+% ─── إعداد اللغة العربية + الأرقام الغربية (1، 2، 3...) ─────────────────────
+\setmainlanguage[calendar=gregorian,numerals=western]{arabic}
 \setotherlanguage{english}
 
 % ─── الخطوط (إعداد بسيط ومتوافق مع Overleaf) ─────────────────────────────────
@@ -220,7 +220,7 @@
     roundcorner=4pt
   ]
   \centering
-  {\normalsize\color{DarkText}\textbf{إعداد الطالب:} \textenglish{yassin tenbih}}\\[0.4cm]
+  {\normalsize\color{DarkText}\textbf{إعداد الطالب:} ياسين تنبيه}\\[0.4cm]
   {\normalsize\color{DarkText}\textbf{القسم:} 3/6}\\[0.4cm]
   {\small\color{FooterGray} \today}
   \end{mdframed}

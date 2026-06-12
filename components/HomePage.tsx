@@ -1,7 +1,8 @@
 "use client";
 
-import Image from "next/image";
-import { useCallback, useEffect, useRef, useState } from "react";
+import OptimizedImage from "@/components/OptimizedImage";
+import { useIsMobile, useReveal, useScrollEffects, useStatCounter } from "@/hooks/useScrollEffects";
+import { useCallback, useEffect, useState } from "react";
 
 const NAV_LINKS = [
   { href: "#intro", label: "مقدمة" },
@@ -69,13 +70,12 @@ const PRESERVE_ITEMS = [
 type LightboxState = { src: string; caption: string } | null;
 
 export default function HomePage() {
-  const [scrolled, setScrolled] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState("");
   const [lightbox, setLightbox] = useState<LightboxState>(null);
-  const [heroOffset, setHeroOffset] = useState(0);
-  const [statValues, setStatValues] = useState<number[]>(STATS.map(() => 0));
-  const statsAnimated = useRef(false);
+  const isMobile = useIsMobile();
+  const { scrolled, activeSection, heroBgRef } = useScrollEffects();
+  const statValues = useStatCounter(isMobile);
+  useReveal();
 
   const openLightbox = useCallback((src: string, caption: string) => {
     setLightbox({ src, caption });
@@ -85,74 +85,6 @@ export default function HomePage() {
   const closeLightbox = useCallback(() => {
     setLightbox(null);
     document.body.style.overflow = "";
-  }, []);
-
-  useEffect(() => {
-    const handleScroll = () => {
-      setScrolled(window.scrollY > 80);
-      setHeroOffset(window.scrollY < window.innerHeight ? window.scrollY * 0.3 : 0);
-
-      const sections = document.querySelectorAll<HTMLElement>("section[id]");
-      let current = "";
-      sections.forEach((section) => {
-        if (window.scrollY >= section.offsetTop - 120) current = section.id;
-      });
-      setActiveSection(current);
-    };
-
-    window.addEventListener("scroll", handleScroll, { passive: true });
-    handleScroll();
-    return () => window.removeEventListener("scroll", handleScroll);
-  }, []);
-
-  useEffect(() => {
-    const revealEls = document.querySelectorAll(".reveal");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("visible");
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.15, rootMargin: "0px 0px -40px 0px" }
-    );
-    revealEls.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  useEffect(() => {
-    const statsEl = document.querySelector(".stats");
-    if (!statsEl) return;
-
-    const observer = new IntersectionObserver(
-      (entries) => {
-        if (!entries[0].isIntersecting || statsAnimated.current) return;
-        statsAnimated.current = true;
-
-        STATS.forEach((stat, index) => {
-          let current = 0;
-          const step = Math.max(1, Math.floor(stat.target / 30));
-          const timer = setInterval(() => {
-            current += step;
-            if (current >= stat.target) {
-              current = stat.target;
-              clearInterval(timer);
-            }
-            setStatValues((prev) => {
-              const next = [...prev];
-              next[index] = current;
-              return next;
-            });
-          }, 40);
-        });
-      },
-      { threshold: 0.5 }
-    );
-
-    observer.observe(statsEl);
-    return () => observer.disconnect();
   }, []);
 
   useEffect(() => {
@@ -196,10 +128,18 @@ export default function HomePage() {
       </nav>
 
       <header className="hero" id="home">
-        <div
-          className="hero-bg"
-          style={{ transform: `scale(1.05) translateY(${heroOffset}px)` }}
-        />
+        <div className="hero-bg" ref={heroBgRef}>
+          <OptimizedImage
+            src="/images/agadirofla.jpg"
+            alt="أكادير أوفلا"
+            fill
+            priority
+            fetchPriority="high"
+            quality={55}
+            sizes="100vw"
+            style={{ objectFit: "cover" }}
+          />
+        </div>
         <div className="hero-overlay" />
         <div className="hero-content">
           <span className="hero-badge">المملكة المغربية — جهة سوس ماسة</span>
@@ -208,11 +148,11 @@ export default function HomePage() {
           <p>دراسة في الموروث الحضاري والثقافي والطبيعي</p>
           <div className="hero-student">
             <span>
-              الطالب: <strong>Yassin Tenbih</strong>
+              الطالب: <strong>ياسين تنبيه</strong>
             </span>
             <span className="sep" />
             <span>
-              القسم: <strong>3/6</strong>
+              القسم: <strong>٣/٦</strong>
             </span>
           </div>
           <a href="#intro" className="hero-cta">
@@ -275,7 +215,7 @@ export default function HomePage() {
                   role="button"
                   tabIndex={0}
                 >
-                  <Image src={item.image} alt={item.title} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: "cover" }} />
+                  <OptimizedImage src={item.image} alt={item.title} fill sizes="(max-width: 768px) 100vw, 33vw" style={{ objectFit: "cover" }} />
                   <div className="img-overlay">
                     <span>عرض الصورة</span>
                   </div>
@@ -312,7 +252,7 @@ export default function HomePage() {
                   role="button"
                   tabIndex={0}
                 >
-                  <Image src={img.src} alt={img.alt} width={400} height={300} style={{ width: "100%", height: "100%", objectFit: "cover", minHeight: 180 }} />
+                  <OptimizedImage src={img.src} alt={img.alt} width={400} height={300} style={{ width: "100%", height: "100%", objectFit: "cover", minHeight: 180 }} />
                 </div>
               ))}
             </div>
@@ -349,7 +289,7 @@ export default function HomePage() {
                 <p>تُعتبر اللغة الأمازيغية السوسية (تاشلحيت) من أهم عناصر الهوية الثقافية للجهة، حيث يتحدث بها معظم سكان المنطقة.</p>
               </div>
               <div className="img-wrap" onClick={() => openLightbox("/images/rways.jpg", "فن الروايس — إرث سوسي عريق")} role="button" tabIndex={0}>
-                <Image src="/images/rways.jpg" alt="فن الروايس" fill sizes="33vw" style={{ objectFit: "cover" }} />
+                <OptimizedImage src="/images/rways.jpg" alt="فن الروايس" fill sizes="33vw" style={{ objectFit: "cover" }} />
               </div>
               <div className="card-body">
                 <h3>فن الروايس</h3>
@@ -363,7 +303,7 @@ export default function HomePage() {
             </article>
             <article className="culture-card reveal">
               <div className="img-wrap" onClick={() => openLightbox("/images/ahwach.jpg", "رقصة أحواش — تراث إنساني مشترك")} role="button" tabIndex={0}>
-                <Image src="/images/ahwach.jpg" alt="رقصة أحواش" fill sizes="33vw" style={{ objectFit: "cover" }} />
+                <OptimizedImage src="/images/ahwach.jpg" alt="رقصة أحواش" fill sizes="33vw" style={{ objectFit: "cover" }} />
               </div>
               <div className="card-body">
                 <h3>رقصة أحواش</h3>
@@ -396,7 +336,7 @@ export default function HomePage() {
           <div className="crafts-gallery reveal">
             {CRAFTS.map((craft) => (
               <div key={craft.label} className="craft-item" onClick={() => openLightbox(craft.image, craft.caption)} role="button" tabIndex={0}>
-                <Image src={craft.image} alt={craft.label} fill sizes="33vw" style={{ objectFit: "cover" }} />
+                <OptimizedImage src={craft.image} alt={craft.label} fill sizes="33vw" style={{ objectFit: "cover" }} />
                 <div className="craft-label">{craft.label}</div>
               </div>
             ))}
@@ -414,7 +354,7 @@ export default function HomePage() {
           </div>
           <div className="nature-showcase reveal">
             <div className="nature-main" onClick={() => openLightbox("/images/parc.jpg", "المنتزه الوطني لسوس ماسة")} role="button" tabIndex={0}>
-              <Image src="/images/parc.jpg" alt="المنتزه الوطني لسوس ماسة" width={800} height={500} style={{ width: "100%", height: "100%", minHeight: 400, objectFit: "cover" }} />
+              <OptimizedImage src="/images/parc.jpg" alt="المنتزه الوطني لسوس ماسة" width={800} height={500} style={{ width: "100%", height: "100%", minHeight: 400, objectFit: "cover" }} />
               <div className="caption">
                 <h3>المنتزه الوطني لسوس ماسة</h3>
                 <p>محمية طبيعية بارزة تحتضن تنوعًا بيولوجيًا فريدًا</p>
@@ -422,11 +362,11 @@ export default function HomePage() {
             </div>
             <div className="nature-side">
               <div className="nature-side-item" onClick={() => openLightbox("/images/wadi.jpg", "وادي الجنة — جمال الطبيعة السوسية")} role="button" tabIndex={0}>
-                <Image src="/images/wadi.jpg" alt="وادي الجنة" fill sizes="50vw" style={{ objectFit: "cover" }} />
+                <OptimizedImage src="/images/wadi.jpg" alt="وادي الجنة" fill sizes="50vw" style={{ objectFit: "cover" }} />
                 <div className="caption">وادي الجنة — Paradise Valley</div>
               </div>
               <div className="nature-side-item" onClick={() => openLightbox("/images/legzira.jpg", "شاطئ ليكزيرا — الأقواس الصخرية")} role="button" tabIndex={0}>
-                <Image src="/images/legzira.jpg" alt="شاطئ ليكزيرا" fill sizes="50vw" style={{ objectFit: "cover" }} />
+                <OptimizedImage src="/images/legzira.jpg" alt="شاطئ ليكزيرا" fill sizes="50vw" style={{ objectFit: "cover" }} />
                 <div className="caption">شاطئ ليكزيرا — الأقواس الصخرية</div>
               </div>
             </div>
@@ -463,11 +403,11 @@ export default function HomePage() {
             </div>
             <div className="cuisine-images reveal">
               <div className="cuisine-img" onClick={() => openLightbox("/images/amlu.jpg", "أملو — لذة سوسية أصيلة")} role="button" tabIndex={0}>
-                <Image src="/images/amlu.jpg" alt="أملو" width={400} height={200} style={{ width: "100%", height: 200, objectFit: "cover" }} />
+                <OptimizedImage src="/images/amlu.jpg" alt="أملو" width={400} height={200} style={{ width: "100%", height: 200, objectFit: "cover" }} />
                 <div className="label">أملو — لذة سوسية أصيلة</div>
               </div>
               <div className="cuisine-img" onClick={() => openLightbox("/images/argan.jpg", "شجرة الأركان — كنز سوس ماسة")} role="button" tabIndex={0}>
-                <Image src="/images/argan.jpg" alt="شجرة الأركان" width={400} height={200} style={{ width: "100%", height: 200, objectFit: "cover" }} />
+                <OptimizedImage src="/images/argan.jpg" alt="شجرة الأركان" width={400} height={200} style={{ width: "100%", height: 200, objectFit: "cover" }} />
                 <div className="label">شجرة الأركان — كنز سوس ماسة</div>
               </div>
             </div>

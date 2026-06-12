@@ -127,12 +127,13 @@
     .hero-bg {
       position: absolute;
       inset: 0;
-      background: url('/images/agadirofla.jpg') center/cover no-repeat;
-      transform: scale(1.05);
-      transition: transform 8s ease;
+      overflow: hidden;
+      will-change: transform;
     }
 
-    .hero:hover .hero-bg { transform: scale(1.1); }
+    .hero-bg img {
+      object-fit: cover;
+    }
 
     .hero-overlay {
       position: absolute;
@@ -1027,5 +1028,76 @@
       .stats { grid-template-columns: 1fr; }
       .crafts-gallery { grid-template-columns: 1fr; }
       .cuisine-images { grid-template-columns: 1fr; }
+    }
+
+    /* ─── Performance mobile ─── */
+    section {
+      content-visibility: auto;
+      contain-intrinsic-size: auto 500px;
+    }
+
+    .hero,
+    #intro {
+      content-visibility: visible;
+    }
+
+    @media (max-width: 768px) {
+      .navbar.scrolled {
+        backdrop-filter: none;
+        background: rgba(252, 248, 240, 0.98);
+      }
+
+      .hero-badge,
+      .hero-student {
+        backdrop-filter: none;
+      }
+
+      .heritage-card:hover,
+      .culture-card:hover,
+      .craft-item:hover,
+      .stat-card:hover,
+      .preserve-card:hover {
+        transform: none;
+      }
+
+      .heritage-card:hover img,
+      .culture-card:hover img,
+      .craft-item:hover img,
+      .nature-main:hover img,
+      .nature-side-item:hover img,
+      .cuisine-img:hover img {
+        transform: none;
+      }
+
+      .reveal {
+        transform: none;
+        opacity: 1;
+        transition: none;
+      }
+
+      .scroll-indicator {
+        display: none;
+      }
+    }
+
+    @media (hover: none) {
+      .heritage-card:hover img,
+      .culture-card:hover img,
+      .craft-item:hover img {
+        transform: none;
+      }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+
+      .reveal {
+        opacity: 1;
+        transform: none;
+      }
     }
   
